@@ -41,7 +41,7 @@ router.post('/', isLoggedIn, async (req, res) => {
     res.redirect('/games')
   } catch (error) {
     console.log(error)
-    res.send('Error creating new game in library')
+    res.send('error creating new game in library')
   }
 })
 

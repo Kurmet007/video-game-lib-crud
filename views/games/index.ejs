@@ -7,6 +7,12 @@
 </head>
 <body>
     <h1>My Game Library</h1>
+    <% if (session.user) { %>
+  <p>
+    Hello! <%= session.user.username %> | 
+    <a href="/logout">Logout</a>
+  </p>
+<% } %>
 <a href="/games/new">Add New Game</a>
 
 <ul>
