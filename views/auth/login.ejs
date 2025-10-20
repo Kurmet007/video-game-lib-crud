@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+</head>
+<body>
+
+<nav>
+  <% if (session.user) { %>
+    <span>Welcome, <%= session.user.username %></span>
+    <a href="/logout">Logout</a>
+  <% } else { %>
+    <a href="/login">Login</a>
+    <a href="/signup">Sign Up</a>
+  <% } %>
+</nav>
+
+<h1>Login</h1>
+<form action="/login" method="POST">
+  <label>Username:</label>
+  <input type="text" name="username" required>
+  
+  <label>Password:</label>
+  <input type="password" name="password" required>
+  
+  <button type="submit">Login</button>
+</form>
+
+<p>Don't have an account? <a href="/signup">Sign up</a></p>
+
+</body>
+</html>

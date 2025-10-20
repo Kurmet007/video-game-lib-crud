@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+</head>
+<body>
+
+<nav>
+  <% if (session.user) { %>
+    <span>Welcome, <%= session.user.username %></span>
+    <a href="/logout">Logout</a>
+  <% } else { %>
+    <a href="/login">Login</a>
+    <a href="/signup">Sign Up</a>
+  <% } %>
+</nav>
+
+<h1>Sign Up</h1>
+<form action="/signup" method="POST">
+  <label>Username:</label>
+  <input type="text" name="username" required>
+  
+  <label>Password:</label>
+  <input type="password" name="password" required>
+  
+  <button type="submit">Sign Up</button>
+</form>
+
+<p>Already have an account? <a href="/login">Login</a></p>
+
+</body>
+</html>

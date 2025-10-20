@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Edit <%= game.title %></h1>
+
+<form action="/games/<%= game._id %>?_method=PUT" method="POST">
+  <label>Title:</label>
+  <input type="text" name="title" value="<%= game.title %>" required><br>
+
+  <label>Platform:</label>
+  <input type="text" name="platform" value="<%= game.platform %>"><br>
+
+  <label>Genre:</label>
+  <input type="text" name="genre" value="<%= game.genre %>"><br>
+
+  <label>Release Year:</label>
+  <input type="number" name="releaseYear" value="<%= game.releaseYear %>"><br>
+
+  <label>Completed:</label>
+  <input type="checkbox" name="completed" <%= game.completed ? 'checked' : '' %>><br>
+
+  <label>Rating:</label>
+  <input type="number" name="rating" value="<%= game.rating %>" min="1" max="10"><br>
+
+  <button type="submit">Save Changes</button>
+</form>
+
+<a href="/games/<%= game._id %>">Cancel</a>
+ 
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>My Game Library</h1>
+<a href="/games/new">Add New Game</a>
+
+<ul>
+  <% games.forEach(game => { %>
+    <li>
+      <a href="/games/<%= game._id %>"><%= game.title %></a>
+      - <%= game.platform %>
+      <form action="/games/<%= game._id %>?_method=DELETE" method="POST">
+        <button>Delete</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
+    
+</body>
+</html>
