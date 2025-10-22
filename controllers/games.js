@@ -6,8 +6,8 @@ const Game = require('../models/game')
 
 
 function isLoggedIn(req, res, next) {
-  if (!req.session.user) return res.redirect('/auth/login')
-  next()
+  if (req.session.user) return next();
+  res.redirect('/auth/login'); 
 }
 
 

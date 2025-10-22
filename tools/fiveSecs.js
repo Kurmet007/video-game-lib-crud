@@ -9,7 +9,7 @@ function fiveSecs(err, res) {
         <p>Redirecting to Login...</p>
         <script>
           setTimeout(() => {
-            window.location.href = '/login';
+            window.location.href = '/auth/login';
           }, 5000);
         </script>
       </div>

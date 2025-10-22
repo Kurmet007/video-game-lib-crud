@@ -2,30 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Game Library</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     <h1>My Game Library</h1>
-    <% if (session.user) { %>
-  <p>
-    Hello! <%= session.user.username %> | 
-    <a href="/logout">Logout</a>
-  </p>
-<% } %>
-<a href="/games/new">Add New Game</a>
 
-<ul>
-  <% games.forEach(game => { %>
-    <li>
-      <a href="/games/<%= game._id %>"><%= game.title %></a>
-      - <%= game.platform %>
-      <form action="/games/<%= game._id %>?_method=DELETE" method="POST">
-        <button>Delete</button>
-      </form>
-    </li>
-  <% }) %>
-</ul>
+    <% if (user) { %>
+      <p>
+        Hello! <%= user.username %> | 
+        <a href="/auth/logout">Logout</a>
+      </p>
+    <% } else { %>
+      <p>
+        <a href="/auth/login">Login</a> | 
+        <a href="/auth/signup">Sign Up</a>
+      </p>
+    <% } %>
+
+    <a href="/games/new">Add New Game</a>
+
+    <ul>
+      <% games.forEach(game => { %>
+        <li>
+          <a href="/games/<%= game._id %>"><%= game.title %></a> - <%= game.platform %>
+          <form action="/games/<%= game._id %>?_method=DELETE" method="POST" style="display:inline">
+            <button>Delete</button>
+          </form>
+        </li>
+      <% }) %>
+    </ul>
     
 </body>
 </html>

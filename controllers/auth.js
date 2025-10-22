@@ -2,50 +2,44 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
 const User = require('../models/user')
-const fiveSecs = require ('../tools/fiveSecs')
+const fiveSecs = require('../tools/fiveSecs')
 
 
 router.get('/signup', (req, res) => {
-  res.render('auth/signup.ejs')
+  res.render('auth/signup')
 })
-
 
 router.post('/signup', async (req, res) => {
   try {
+    if (req.body.password !== req.body.confirmPassword) {
+      return res.send("⚠️ Password and confirm password must match")
+    }
+
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    const newUser = await User.create({
-      username: req.body.username,
-      password: hashedPassword
-    })
+    req.body.password = hashedPassword
+
+    const newUser = await User.create(req.body)
 
     req.session.user = newUser
-    res.redirect('/games')
 
+    res.redirect('/games')
   } catch (err) {
-    // console.error(err)
-    // return res.send(`Err ${err.code}`)
     fiveSecs(err, res)
   }
 })
 
 
-
-
-
 router.get('/login', (req, res) => {
-  res.render('auth/login.ejs')
+  res.render('auth/login')
 })
-
 
 router.post('/login', async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username })
-    if (!user) return res.send('user not found 404')
-
-
+    if (!user) return res.send('User not found 404')
 
     const validPassword = await bcrypt.compare(req.body.password, user.password)
-    if (!validPassword) return res.send('incorrect try again')
+    if (!validPassword) return res.send('Incorrect password, try again')
 
     req.session.user = user
     res.redirect('/games')
@@ -55,10 +49,9 @@ router.post('/login', async (req, res) => {
   }
 })
 
-
 router.get('/logout', (req, res) => {
   req.session.destroy(() => {
-    res.redirect('/login')
+    res.redirect('/auth/login')
   })
 })
 
