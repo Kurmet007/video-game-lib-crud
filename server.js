@@ -39,7 +39,7 @@ app.use((req, res, next) => {
 const authController = require('./controllers/auth')
 const gameController = require('./controllers/games')
 
-app.use('/', authController)
+app.use('/auth', authController)
 app.use('/games', gameController)
 
 

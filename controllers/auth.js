@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
 const User = require('../models/user')
-
+const fiveSecs = require ('../tools/fiveSecs')
 
 
 router.get('/signup', (req, res) => {
@@ -10,23 +10,26 @@ router.get('/signup', (req, res) => {
 })
 
 
-
 router.post('/signup', async (req, res) => {
   try {
-
-
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
     const newUser = await User.create({
       username: req.body.username,
       password: hashedPassword
     })
+
     req.session.user = newUser
     res.redirect('/games')
+
   } catch (err) {
-    console.error(err)
-    res.send('Error signing up. Username might already exist.')
+    // console.error(err)
+    // return res.send(`Err ${err.code}`)
+    fiveSecs(err, res)
   }
 })
+
+
+
 
 
 router.get('/login', (req, res) => {

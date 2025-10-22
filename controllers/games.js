@@ -6,7 +6,7 @@ const Game = require('../models/game')
 
 
 function isLoggedIn(req, res, next) {
-  if (!req.session.user) return res.redirect('/login')
+  if (!req.session.user) return res.redirect('/auth/login')
   next()
 }
 
@@ -16,7 +16,7 @@ function isLoggedIn(req, res, next) {
 router.get('/', isLoggedIn, async (req, res) => {
   try {
     const games = await Game.find({ owner: req.session.user._id })
-    res.render('games/index.ejs', { games })
+    res.render('games/index.ejs', { games, user: req.session.user })
   } catch (err) {
     console.error(err)
     res.send('Error loading games')
